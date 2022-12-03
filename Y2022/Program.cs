@@ -1,6 +1,6 @@
 ﻿using Y2022;
 
-IDay day = new Day01();
+IDay day = new Day02();
 
 Console.WriteLine(day.GetType().Name);
 Console.WriteLine("Part 1");
