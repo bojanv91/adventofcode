@@ -5,62 +5,68 @@
     /// </summary>
     public class Day02 : IDay
     {
-        readonly Dictionary<char, int> _shapesScores = new()
-        {
-            { 'A', 1 },
-            { 'B',  2 },
-            { 'C', 3 }
-        };
-
         public void Part1()
         {
-            var decryptedShapeFor = new Dictionary<char, char>
+            var preCalculatedScores = new Dictionary<string, int>
             {
-                { 'X', 'A' },
-                { 'Y',  'B' },
-                { 'Z', 'C' }
+                // --part 1
+                // draw pairs
+                { "AX", 3 + 1 },
+                { "BY", 3 + 2 },
+                { "CZ", 3 + 3 },
+                // winning pairs
+                { "CX", 6 + 1 },
+                { "AY", 6 + 2 },
+                { "BZ", 6 + 3 },
+                // lossing pairs
+                { "AZ", 0 + 3 },
+                { "BX", 0 + 1 },
+                { "CY", 0 + 2 }
             };
 
             var result = File.ReadAllLines("./Day02.txt")
-                .Sum(x => CalculateScore(x[0], decryptedShapeFor[x[2]]));
+                .Sum(x => preCalculatedScores[string.Concat(x[0], x[2])]);
 
             Console.WriteLine(result);
-        }
-
-        private int CalculateScore(char opponentShape, char yourShape)
-        {
-            if (yourShape == opponentShape)
-                return 3 + _shapesScores[yourShape]; // draw
-            else if (yourShape == 'A' && opponentShape == 'C'
-                || yourShape == 'B' && opponentShape == 'A'
-                || yourShape == 'C' && opponentShape == 'B')
-                return 6 + _shapesScores[yourShape]; // win
-            else
-                return 0 + _shapesScores[yourShape]; // lose
         }
 
         public void Part2()
         {
-            var decryptedShapeFor = new Dictionary<string, char>
+            var preCalculatedScores = new Dictionary<string, int>
             {
+                // --part 2
                 // draw pairs
-                { "AY", 'A' },
-                { "BY", 'B' },
-                { "CY", 'C' },
+                { "AY", 3 + 1 },
+                { "BY", 3 + 2 },
+                { "CY", 3 + 3 },
                 // winning pairs
-                { "AZ", 'B' },
-                { "BZ", 'C' },
-                { "CZ", 'A' },
+                { "AZ", 6 + 2 },
+                { "BZ", 6 + 3 },
+                { "CZ", 6 + 1 },
                 // lossing pairs
-                { "AX", 'C' },
-                { "BX", 'A' },
-                { "CX", 'B' }
+                { "AX", 0 + 3 },
+                { "BX", 0 + 1 },
+                { "CX", 0 + 2 }
             };
 
             var result = File.ReadAllLines("./Day02.txt")
-                .Sum(x => CalculateScore(x[0], decryptedShapeFor[string.Concat(x[0], x[2])]));
+                .Sum(x => preCalculatedScores[string.Concat(x[0], x[2])]);
 
             Console.WriteLine(result);
         }
+
+        //// --original
+        //// draw pairs
+        //{ "AA", 3 + 1 },
+        //{ "BB", 3 + 2 },
+        //{ "CC", 3 + 3 },
+        //// winning pairs
+        //{ "CA", 6 + 1 },
+        //{ "AB", 6 + 2 },
+        //{ "BC", 6 + 3 },
+        //// lossing pairs
+        //{ "AC", 0 + 3 },
+        //{ "BA", 0 + 1 },
+        //{ "CB", 0 + 2 },
     }
 }
