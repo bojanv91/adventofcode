@@ -5,38 +5,38 @@
     /// </summary>
     public class Day01 : IDay
     {
-        public void Part1()
+        public int Part1()
         {
             var result = File.ReadAllLines("./Day01.txt")
-                .Aggregate(new List<long>() { 0 }, (totals, inputItem) =>
+                .Aggregate(new List<int>() { 0 }, (totals, inputItem) =>
                     {
                         if (string.IsNullOrEmpty(inputItem))
                             totals.Add(0);
                         else
-                            totals[^1] += long.Parse(inputItem);
+                            totals[^1] += int.Parse(inputItem);
                         return totals;
                     })
                 .Max();
 
-            Console.WriteLine(result);
+            return result;
         }
 
-        public void Part2()
+        public int Part2()
         {
             var result = File.ReadAllLines("./Day01.txt")
-                .Aggregate(new List<long>() { 0 }, (totals, inputItem) =>
+                .Aggregate(new List<int>() { 0 }, (totals, inputItem) =>
                 {
                     if (string.IsNullOrEmpty(inputItem))
                         totals.Add(0);
                     else
-                        totals[^1] += long.Parse(inputItem);
+                        totals[^1] += int.Parse(inputItem);
                     return totals;
                 })
                 .OrderByDescending(x => x)
                 .Take(3)
                 .Sum();
 
-            Console.WriteLine(result);
+            return result;
         }
     }
 }

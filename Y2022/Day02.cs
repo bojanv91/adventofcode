@@ -5,7 +5,7 @@
     /// </summary>
     public class Day02 : IDay
     {
-        public void Part1()
+        public int Part1()
         {
             var preCalculatedScores = new Dictionary<string, int>
             {
@@ -27,10 +27,10 @@
             var result = File.ReadAllLines("./Day02.txt")
                 .Sum(x => preCalculatedScores[string.Concat(x[0], x[2])]);
 
-            Console.WriteLine(result);
+            return result;
         }
 
-        public void Part2()
+        public int Part2()
         {
             var preCalculatedScores = new Dictionary<string, int>
             {
@@ -52,7 +52,7 @@
             var result = File.ReadAllLines("./Day02.txt")
                 .Sum(x => preCalculatedScores[string.Concat(x[0], x[2])]);
 
-            Console.WriteLine(result);
+            return result;
         }
 
         //// --original

@@ -8,7 +8,7 @@ namespace Y2022
 {
     public interface IDay
     {
-        void Part1();
-        void Part2();
+        int Part1();
+        int Part2();
     }
 }

@@ -1,9 +1,12 @@
-﻿using Y2022;
+﻿using BenchmarkDotNet.Running;
+using Y2022;
 
-IDay day = new Day02();
+var summary = BenchmarkRunner.Run<MyBenchmark>();
 
-Console.WriteLine(day.GetType().Name);
-Console.WriteLine("Part 1");
-day.Part1();
-Console.WriteLine("Part 2");
-day.Part2();
+//IDay day = new Day02();
+
+//Console.WriteLine(day.GetType().Name);
+//Console.WriteLine("Part 1");
+//Console.WriteLine(day.Part1());
+//Console.WriteLine("Part 2");
+//Console.WriteLine(day.Part2());
