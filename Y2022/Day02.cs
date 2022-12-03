@@ -1,95 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Y2022
+﻿namespace Y2022
 {
     /// <summary>
     /// Day 2: Rock Paper Scissors
     /// </summary>
     public class Day02 : IDay
     {
-        Dictionary<char, int> shapeValues = new Dictionary<char, int>()
+        readonly Dictionary<char, int> _shapesScores = new()
         {
-            //new KeyValuePair<char, int>('A', 6)
+            { 'A', 1 },
+            { 'B',  2 },
+            { 'C', 3 }
         };
 
         public void Part1()
         {
+            var decryptedShapeFor = new Dictionary<char, char>
+            {
+                { 'X', 'A' },
+                { 'Y',  'B' },
+                { 'Z', 'C' }
+            };
+
             var result = File.ReadAllLines("./Day02.txt")
-                .Sum(x => CalculateScore(x[0], Decrypt(x[2])));
+                .Sum(x => CalculateScore(x[0], decryptedShapeFor[x[2]]));
 
             Console.WriteLine(result);
         }
 
-        private static char Decrypt(char shape)
+        private int CalculateScore(char opponentShape, char yourShape)
         {
-            return shape switch
-            {
-                'X' => 'A',
-                'Y' => 'B',
-                'Z' => 'C',
-                _ => ' ',
-            };
-        }
-
-        private int CalculateScore(char them, char you)
-        {
-            int result;
-            if (you == them)
-                result = 3; // draw
-            else if (you == 'A' && them == 'C' || you == 'B' && them == 'A' || you == 'C' && them == 'B')
-                result = 6; // win
+            if (yourShape == opponentShape)
+                return 3 + _shapesScores[yourShape]; // draw
+            else if (yourShape == 'A' && opponentShape == 'C'
+                || yourShape == 'B' && opponentShape == 'A'
+                || yourShape == 'C' && opponentShape == 'B')
+                return 6 + _shapesScores[yourShape]; // win
             else
-                result = 0; // lose
-
-            if (you == 'A')
-                result += 1;
-            else if (you == 'B')
-                result += 2;
-            else if (you == 'C')
-                result += 3;
-
-            return result;
+                return 0 + _shapesScores[yourShape]; // lose
         }
 
         public void Part2()
         {
+            var decryptedShapeFor = new Dictionary<string, char>
+            {
+                // draw pairs
+                { "AY", 'A' },
+                { "BY", 'B' },
+                { "CY", 'C' },
+                // winning pairs
+                { "AZ", 'B' },
+                { "BZ", 'C' },
+                { "CZ", 'A' },
+                // lossing pairs
+                { "AX", 'C' },
+                { "BX", 'A' },
+                { "CX", 'B' }
+            };
+
             var result = File.ReadAllLines("./Day02.txt")
-                .Sum(x => CalculateScore(x[0], Decrypt2(x[0], x[2])));
+                .Sum(x => CalculateScore(x[0], decryptedShapeFor[string.Concat(x[0], x[2])]));
 
             Console.WriteLine(result);
-        }
-
-        private static char Decrypt2(char them, char yourResult)
-        {
-            char you;
-            if (yourResult == 'Y') // draw
-            {
-                you = them;
-            }
-            else if (yourResult == 'Z') // win
-            {
-                if (them == 'A')
-                    you = 'B';
-                else if (them == 'B')
-                    you = 'C';
-                else
-                    you = 'A';
-            }
-            else // lose
-            {
-                if (them == 'A')
-                    you = 'C';
-                else if (them == 'B')
-                    you = 'A';
-                else
-                    you = 'B';
-            }
-            return you;
         }
     }
 }
