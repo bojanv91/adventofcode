@@ -7,7 +7,7 @@ using Y2022;
 //Console.WriteLine((int)'Z' - 38);
 //return;
 
-IDay day = new Day03();
+IDay day = new Day04();
 
 Console.WriteLine(day.GetType().Name);
 Console.WriteLine("Part 1");
